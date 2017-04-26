@@ -1,0 +1,60 @@
+D, [2017-04-26T17:36:30.441666 #59420] DEBUG -- :   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Run options: include {:focus=>true}
+
+All examples were filtered out; ignoring {:focus=>true}
+
+Blog Post App
+  Create Action
+    creates a new blog post
+    redirects to '/posts'
+  Read Action
+    index action
+      responds with a 200 status code
+      displays all the blog posts
+    show action
+      show page responds with a 200 status code
+      show page displays the post's name
+      show page displays the post's content
+  update action
+    responds with a 200 status code
+    displays the existing object in the edit form (FAILED - 1)
+
+Failures:
+
+  1) Blog Post App update action displays the existing object in the edit form
+     Failure/Error: expect(page.body).to include("#{@post2.name}")
+
+       expected "<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <title></title>\n  </head>\n  <body>\n    <form action=\"/posts/1\" method=\"POST\">\n      <input id=\"hidden\" type=\"hidden\" name=\"_method\" value=\"patch\" />\n      <input value=\"Hello World\" name=\"post[name]\" />\n      <input value=\"This is my first blog post!!!\" name=\"post[content]\" />\n      <button type=\"submit\">submit</button>\n    </form>\n  </body>\n</html>\n" to include "second post"
+       Diff:
+       @@ -1,2 +1,16 @@
+       -second post
+       +<!DOCTYPE html>
+       +<html>
+       +  <head>
+       +    <meta charset="utf-8">
+       +    <title></title>
+       +  </head>
+       +  <body>
+       +    <form action="/posts/1" method="POST">
+       +      <input id="hidden" type="hidden" name="_method" value="patch" />
+       +      <input value="Hello World" name="post[name]" />
+       +      <input value="This is my first blog post!!!" name="post[content]" />
+       +      <button type="submit">submit</button>
+       +    </form>
+       +  </body>
+       +</html>
+     # ./spec/sinatra_ar_crud_lab_spec.rb:85:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:25:in `block (3 levels) in <top (required)>'
+     # /Users/isaacanderson/.rvm/gems/ruby-2.3.0/bundler/gems/database_cleaner-b87f00320f8a/lib/database_cleaner/generic/base.rb:16:in `cleaning'
+     # /Users/isaacanderson/.rvm/gems/ruby-2.3.0/bundler/gems/database_cleaner-b87f00320f8a/lib/database_cleaner/base.rb:92:in `cleaning'
+     # /Users/isaacanderson/.rvm/gems/ruby-2.3.0/bundler/gems/database_cleaner-b87f00320f8a/lib/database_cleaner/configuration.rb:86:in `block (2 levels) in cleaning'
+     # /Users/isaacanderson/.rvm/gems/ruby-2.3.0/bundler/gems/database_cleaner-b87f00320f8a/lib/database_cleaner/configuration.rb:87:in `cleaning'
+     # ./spec/spec_helper.rb:24:in `block (2 levels) in <top (required)>'
+
+Finished in 0.22164 seconds (files took 1.29 seconds to load)
+9 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/sinatra_ar_crud_lab_spec.rb:83 # Blog Post App update action displays the existing object in the edit form
+
